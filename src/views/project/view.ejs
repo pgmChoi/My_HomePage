@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <%- include('../partials/nav', { user: user }) %>
+
+    <div class="container">
+        <div class="project-view-header">
+            <h1 class="view-title"><%= project.title %></h1>
+            
+            <% if (project.tech_stack) { %>
+                <div class="tags view-tech-stack">
+                    <% project.tech_stack.split(',').forEach(tech => { %>
+                        <span class="tag primary"><%= tech.trim() %></span>
+                    <% }) %>
+                </div>
+            <% } %>
+
+            <div class="view-meta">
+                <span>작성자: <%= project.author %></span> |
+                <span>작성일: <%= new Date(project.created_at).toLocaleDateString() %></span>
+                
+                <div class="view-links">
+                    <% if (project.github_url) { %>
+                        <a href="<%= project.github_url %>" target="_blank" class="button btn-github">GitHub 방문</a>
+                    <% } %>
+                    <% if (project.demo_url) { %>
+                        <a href="<%= project.demo_url %>" target="_blank" class="button btn-demo">데모 사이트</a>
+                    <% } %>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="post-content"><%= project.content %></div>
+
+        <div class="actions text-right">
+            <a href="/project" class="button btn-secondary">목록으로</a>
+
+            <% if (user && user.email === 'admin@example.com') { %>
+                <a href="/project/edit/<%= project.post_id %>" class="button">수정</a>
+                <a href="/project/delete/<%= project.post_id %>" class="button delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

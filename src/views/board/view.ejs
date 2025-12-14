@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="container">
+        <div class="post-header">
+            <h2 class="post-title"><%= post.title %></h2>
+            <div class="post-meta">
+                <span>작성자: <%= post.author %></span> | 
+                <span>조회수: <%= post.views %></span> | 
+                <span><%= new Date(post.created_at).toLocaleString() %></span>
+            </div>
+        </div>
+
+        <div class="post-content"><%= post.content %></div>
+
+        <div class="actions text-right">
+            <a href="/board/<%= type %>" class="button btn-secondary">목록</a>
+            
+            <% if (user && (user.user_id === post.user_id || user.email === 'admin@example.com')) { %>
+                <a href="/board/<%= type %>/edit/<%= post.post_id %>" class="button">수정</a>
+                <a href="/board/<%= type %>/delete/<%= post.post_id %>" class="button delete" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

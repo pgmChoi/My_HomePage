@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+</head>
+<body>
+    <%- include('../partials/nav') %>
+    <div class="container">
+        <h2><%= post ? '글 수정' : '글 쓰기' %></h2>
+        
+        <form action="/board/<%= type %>/<%= post ? 'edit/' + post.post_id : 'write' %>" method="POST">
+            <div class="input-group form-group">
+                <label>제목</label>
+                <input type="text" name="title" value="<%= post ? post.title : '' %>" required class="form-control">
+            </div>
+            
+            <div class="input-group form-group">
+                <label>내용</label>
+                <textarea name="content" rows="15" required class="form-control form-textarea"><%= post ? post.content : '' %></textarea>
+            </div>
+
+            <div class="text-right">
+                <a href="/board/<%= type %>" class="button btn-secondary mr-10">취소</a>
+                <button type="submit" class="button"><%= post ? '수정 완료' : '등록' %></button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

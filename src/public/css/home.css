@@ -1,0 +1,288 @@
+/* --- 기존 홈(대시보드) 스타일 --- */
+.welcome-section {
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    color: white;
+    padding: 40px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(37, 117, 252, 0.2);
+}
+
+.welcome-section h1 {
+    color: white;
+    margin: 0 0 10px 0;
+    font-size: 2em;
+}
+
+.welcome-section p {
+    font-size: 1.1em;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.section-title {
+    font-size: 1.4em;
+    border-left: 5px solid #007bff;
+    padding-left: 15px;
+    margin: 30px 0 20px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+/* --- 프로젝트 카드 그리드 --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.project-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: #b8daff;
+}
+
+.project-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.project-card p {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.6;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+/* --- 태그 스타일 (공통) --- */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+/* 리스트용 태그 스타일 */
+.tag.tech {
+    background-color: #e9ecef; 
+    color: #495057;
+}
+
+.tag.date {
+    background: none; 
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.tag.more {
+    background-color: #007bff; 
+    color: white;
+}
+
+.card-footer {
+    margin-top: auto;
+}
+
+/* --- 리스트 페이지 (List) 전용 --- */
+.archive-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.archive-title {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    border-left: 5px solid #007bff;
+    padding-left: 15px;
+}
+
+.tech-stack-list {
+    margin-bottom: 10px;
+}
+
+.empty-state {
+    grid-column: 1 / -1; /* 그리드 전체 너비 차지 */
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.list-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+
+/* --- 상세 보기 페이지 (View) 전용 --- */
+.project-view-header {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    border-bottom: 3px solid #007bff;
+    margin-bottom: 30px;
+}
+
+.view-title {
+    margin: 0 0 15px 0;
+    font-size: 2em;
+    color: #333;
+}
+
+.view-tech-stack {
+    margin-bottom: 15px;
+}
+
+.tag.primary {
+    background: #007bff;
+    color: white;
+    margin-right: 5px;
+}
+
+.view-meta {
+    color: #555;
+    font-size: 0.95em;
+}
+
+.view-links {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-github {
+    background-color: #333;
+    color: white;
+}
+.btn-github:hover { background-color: #000; }
+
+.btn-demo {
+    background-color: #28a745;
+    color: white;
+}
+.btn-demo:hover { background-color: #218838; }
+
+.project-content-box {
+    background: #fff;
+    padding: 20px;
+    min-height: 400px;
+    line-height: 1.8;
+    font-size: 1.1em;
+    color: #333;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+
+}
+
+
+/* --- 글쓰기/수정 페이지 (Write) 전용 --- */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-col {
+    flex: 1;
+}
+
+.quick-menu {
+    display: flex;
+    gap: 15px;
+}
+
+/* 링크 스타일 초기화 (밑줄 제거, 색상 상속) */
+.link-reset {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* 카드 전체 클릭 영역 확보 */
+}
+
+/* 홈 화면 섹션 헤더 (My Projects 부분) */
+.home-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+}
+
+/* 섹션 타이틀 스타일 재정의 (테두리 없애기 등) */
+.home-section-header .section-title {
+    margin: 0;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* "전체 보기 >" 링크 스타일 */
+.view-all-link {
+    font-size: 0.7em;
+    color: #007bff;
+    margin-left: 10px;
+    font-weight: normal;
+}
+
+/* 프로젝트 추가 버튼 (작게) */
+.btn-small {
+    font-size: 0.8em;
+    padding: 8px 12px;
+}
+
+/* --- 말줄임표(...) 처리 (CSS line-clamp 사용) --- */
+.project-desc-truncate {
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    
+    /* 3줄까지만 보여주고 넘치면 ... 처리 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 4.8em; /* 줄 수가 적어도 높이 유지 (선택사항) */
+}
+
+/* 퀵 메뉴 섹션 (여백 확보) */
+.quick-menu-section {
+    margin-top: 60px;
+    clear: both; /* 레이아웃 겹침 방지 */
+}

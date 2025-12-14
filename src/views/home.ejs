@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+<body>
+    <%- include('partials/nav', { user: user }) %>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>반갑습니다, <%= user.user_name %>님!</h1>
+            <p>현재 <strong><%= user.email === 'admin@example.com' ? '관리자(Administrator)' : '일반 사용자' %></strong> 권한으로 접속 중입니다.</p>
+        </div>
+
+        <div class="home-section-header">
+            <div class="section-title">
+                <a href="/project" class="link-reset">
+                    My Projects <span class="view-all-link">전체 보기 ></span>
+                </a>
+            </div>
+            <% if (user && user.email === 'admin@example.com') { %>
+                <a href="/project/write" class="button btn-small">+ 프로젝트 추가</a>
+            <% } %>
+        </div>
+
+        <div class="project-grid">
+            <% if (projects && projects.length > 0) { %>
+                <% projects.forEach(project => { %>
+                    <a href="/project/view/<%= project.post_id %>" class="link-reset">
+                        <div class="project-card">
+                            <h3><%= project.title %></h3>
+                            
+                            <p class="project-desc-truncate"><%= project.content %></p>
+                            
+                            <div class="tags card-footer">
+                                <span class="tag date"><%= new Date(project.created_at).toLocaleDateString() %></span>
+                            </div>
+                        </div>
+                    </a>
+                <% }) %>
+            <% } else { %>
+                <div class="empty-state">등록된 프로젝트가 없습니다.</div>
+            <% } %>
+        </div>
+
+        <div class="section-title quick-menu-section">Quick Menu</div>
+        <div class="quick-menu">
+            <a href="/board/notice" class="button btn-secondary">📢 공지사항 확인</a>
+            <a href="/board/free" class="button">📝 자유게시판 글쓰기</a>
+        </div>
+    </div>
+</body>
+</html>

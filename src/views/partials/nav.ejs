@@ -1,0 +1,15 @@
+<nav class="navbar">
+    <div class="page-title">
+        <%= title %>
+    </div>
+    <ul class="menu">
+            <li><a href="/home">홈페이지</a></li>
+            <li><a href="/board">자유게시판</a></li>
+            <li><a href="/board/notice">공지사항</a></li>
+            
+        <% if (user && user.email === 'admin@example.com') { %>
+            <li><a href="/admin" class="<%= title === 'Admin - User Management' ? 'active' : '' %>">사용자관리</a></li>
+        <% } %>
+        <li><a href="/logout">로그아웃</a></li>
+    </ul>
+</nav>
