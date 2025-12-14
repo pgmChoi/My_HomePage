@@ -38,6 +38,7 @@ INSERT INTO users (email, user_name, password) VALUES ('admin@example.com', 'Adm
 INSERT INTO users (email, user_name, password) VALUES ('user1@example.com', 'Test User One', 'password');
 INSERT INTO users (email, user_name, password) VALUES ('user2@example.com', 'Test User Two', 'password');
 
+
 select * from users;
 select * from posts;
 select * from project_details;

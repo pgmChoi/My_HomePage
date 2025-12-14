@@ -34,7 +34,6 @@ router.post('/login', (req, res) => {
 router.get('/home', (req, res) => {
     if (!req.session.user) return res.redirect('/');
 
-    // [수정] LIMIT를 6에서 2로 변경하여 최신 2개만 가져오게 설정
     const sql = `
         SELECT p.*, d.tech_stack 
         FROM posts p 

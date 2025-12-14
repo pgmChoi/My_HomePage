@@ -13,22 +13,33 @@ const isAdmin = (req, res, next) => {
 
 // 1. 프로젝트 목록
 router.get('/', (req, res) => {
-    const query = `
+    const search = req.query.search || ''; 
+
+    let query = `
         SELECT p.*, d.github_url, d.tech_stack 
         FROM posts p 
         LEFT JOIN project_details d ON p.post_id = d.post_id 
-        WHERE p.type = 'project' 
-        ORDER BY p.created_at DESC`;
-        
-    db.query(query, (err, results) => {
+        WHERE p.type = 'project'`;
+
+    let params = [];
+
+    if (search) {
+        query += ' AND (p.title LIKE ? OR p.content LIKE ? OR d.tech_stack LIKE ?)';
+        const searchKeyword = `%${search}%`;
+        params.push(searchKeyword, searchKeyword, searchKeyword);
+    }
+
+    query += ' ORDER BY p.created_at DESC';
+
+    db.query(query, params, (err, results) => {
         if (err) throw err;
-        
+    
         res.render('project/list', { 
             title: '전체 프로젝트',
             posts: results,
-            totalPosts: results.length,
+            totalPosts: results.length, 
             user: req.session.user || null,
-            search: req.query.search || '', 
+            search: search, 
             type: 'project',
             currentPage: 1,
             totalPages: 1 
@@ -40,20 +51,17 @@ router.get('/', (req, res) => {
 router.get('/view/:id', (req, res) => {
     const { id } = req.params;
 
-    // [추가] 유효성 검사: id가 숫자가 아니면 경고창 띄우고 목록으로 보냄
     if (isNaN(id)) {
         return res.send('<script>alert("올바르지 않은 접근입니다."); location.href="/project";</script>');
     }
 
     // 조회수 증가
     db.query('UPDATE posts SET views = views + 1 WHERE post_id = ?', [id], (err) => {
-        // 만약 여기서 에러가 나더라도 서버가 죽지 않도록 예외 처리
         if (err) { //
             console.error(err);
             return res.send('<script>alert("데이터베이스 오류가 발생했습니다."); location.href="/project";</script>');
         } 
 
-        // 상세 정보 조회
         const query = `
             SELECT p.*, d.github_url, d.demo_url, d.tech_stack
             FROM posts p
@@ -135,7 +143,7 @@ router.post('/edit/:id', isAdmin, (req, res) => {
     });
 });
 
-// 7. 삭제 (Foreign Key CASCADE 덕분에 posts만 지워도 details가 자동 삭제됨)
+// 7. 삭제 
 router.get('/delete/:id', isAdmin, (req, res) => {
     const { id } = req.params;
     db.query('DELETE FROM posts WHERE post_id = ?', [id], (err) => {

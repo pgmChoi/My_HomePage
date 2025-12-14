@@ -29,7 +29,7 @@ const adminRouter = require('./routes/admin');
 const projectRouter = require('./routes/project'); 
 
 app.use((req, res, next) => {
-    res.locals.user = req.session.user || null; // 뷰에서 user 전역 사용
+    res.locals.user = req.session.user || null; 
     next();
 });
 
