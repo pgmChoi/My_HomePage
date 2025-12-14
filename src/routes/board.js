@@ -50,6 +50,7 @@ router.get('/:type', userId, (req, res) => {
                 posts,
                 currentPage: page,
                 totalPages,
+                totalPosts,
                 search,
                 type 
             });

@@ -22,10 +22,11 @@ router.get('/', (req, res) => {
         
     db.query(query, (err, results) => {
         if (err) throw err;
-        // [변경] 뷰 경로를 'project/list'로 명확히 지정
+        
         res.render('project/list', { 
             title: '전체 프로젝트',
             posts: results,
+            totalPosts: results.length,
             user: req.session.user || null,
             search: req.query.search || '', 
             type: 'project',
@@ -120,20 +121,14 @@ router.get('/edit/:id', isAdmin, (req, res) => {
 // 6. 수정 처리
 router.post('/edit/:id', isAdmin, (req, res) => {
     const { id } = req.params;
-    const { title, content, github_url, demo_url, tech_stack } = req.body;
+    let { title, content, github_url, demo_url, tech_stack } = req.body;
 
     db.query('UPDATE posts SET title = ?, content = ? WHERE post_id = ?', [title, content, id], (err) => {
         if (err) throw err;
 
-        const detailSql = `
-            INSERT INTO project_details (post_id, github_url, demo_url, tech_stack) 
-            VALUES (?, ?, ?, ?) 
-            ON DUPLICATE KEY UPDATE 
-            github_url = VALUES(github_url), 
-            demo_url = VALUES(demo_url), 
-            tech_stack = VALUES(tech_stack)`;
-
-        db.query(detailSql, [id, github_url, demo_url, tech_stack], (err) => {
+        const detailSql = 'UPDATE project_details SET github_url=?, demo_url=?, tech_stack=? WHERE post_id=?';
+        
+        db.query(detailSql, [github_url, demo_url, tech_stack, id], (err) => {
             if (err) throw err;
             res.redirect(`/project/view/${id}`);
         });

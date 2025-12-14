@@ -35,9 +35,9 @@
             </thead>
             <tbody>
                 <% if(posts.length > 0) { %>
-                    <% posts.forEach(post => { %>
+                    <% posts.forEach((post, index) => { %>
                     <tr>
-                        <td><%= post.post_id %></td>
+                        <td><%= totalPosts - index %></td>
                         <td>
                             <a href="/project/view/<%= post.post_id %>" class="post-link">
                                 <%= post.title %>
